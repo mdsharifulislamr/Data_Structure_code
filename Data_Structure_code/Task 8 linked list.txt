@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* createNode(int value) {
+    Node* newNode = new Node();
+    newNode->data = value;
+    newNode->next = nullptr;
+    return newNode;
+}
+Node* addToBeginning(Node* head, int value) {
+    Node* newNode = createNode(value);
+    newNode->next = head;
+    return newNode;
+}
+Node* addToEnd(Node* head, int value) {
+    Node* newNode = createNode(value);
+    if (head == nullptr) {
+        return newNode;
+    }
+    Node* temp = head;
+    while (temp->next != nullptr) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    return head;
+}
+void printLinkedList(Node* head) {
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout << temp->data;
+        if (temp->next != nullptr) {
+            cout << " -> ";
+        }
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    Node* head = nullptr;
+    head = addToBeginning(head, 5);
+    head = addToEnd(head, 10);
+    head = addToEnd(head, 15);
+    cout << "Linked List: ";
+    printLinkedList(head);
+
+    return 0;
+}

@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+
+void remove(int source[], int ArraySize, int idx);
+
+int main() {
+
+    int source[] = {10, 20, 30, 40, 50, 0, 0};
+    int ArraySize = sizeof(source) / sizeof(source[0]);
+    int idx = 2;
+    remove(source, ArraySize, idx);
+
+    return 0;
+}
+    void remove(int source[], int ArraySize, int idx) {
+
+    for (int i = idx; i < ArraySize - 1; ++i) {
+        source[i] = source[i + 1];
+    }
+
+    source[ArraySize - 1] = 0;
+
+    cout << "After Removing element at index " << idx << " array : [ ";
+    for (int i = 0; i < ArraySize; ++i) {
+        cout << source[i];
+        if (i < ArraySize - 1) {
+            cout << ", ";
+        }
+    }
+    cout << " ]" << endl;
+}
+

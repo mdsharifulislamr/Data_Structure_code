@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+
+void removeAll(int source[], int ArraySize, int element);
+
+int main() {
+
+    int source[] = {10, 2, 30, 2, 50, 2, 2, 0, 0};
+    int ArraySize = sizeof(source) / sizeof(source[0]);
+    int element = 2;
+    removeAll(source, ArraySize, element);
+
+    return 0;
+}
+    void removeAll(int source[], int ArraySize, int element) {
+    int newSize = 0;
+    for (int i = 0; i < ArraySize; ++i) {
+        if (source[i] != element) {
+            source[newSize] = source[i];
+            ++newSize;
+        }
+    }
+    for (int i = newSize; i < ArraySize; ++i) {
+        source[i] = 0;
+    }
+    cout << "After Removing element " << element << " from array : [ ";
+    for (int i = 0; i < ArraySize; ++i) {
+        cout << source[i];
+        if (i < ArraySize - 1) {
+            cout << ", ";
+        }
+    }
+    cout << " ]" << endl;
+}
+

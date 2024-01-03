@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+
+void shiftLeft( int source[], int Size, int j ){
+  for(int i=j; i<Size; ++i){
+    source[i - j] = source[i];
+    source[i] = 0;
+  }
+
+    cout << "After Left shifting array: [ ";
+    for (int i = 0; i < Size; ++i) {
+        cout << source[i];
+        if (i < Size - 1) {
+            cout << ", ";
+        }
+    }
+    cout << " ]" << endl;
+}
+
+int main(){
+
+   int source[] = {10, 20, 30, 40, 50, 60};
+   int Size = sizeof(source) / sizeof(source[0]);
+   int j = 3;
+
+   shiftLeft(source, Size, j);
+
+
+    return 0;
+}

@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* createNode(int value) {
+    Node* newNode = new Node();
+    newNode->data = value;
+    newNode->next = nullptr;
+    return newNode;
+}
+Node* addToBeginning(Node* head, int value) {
+    Node* newNode = createNode(value);
+    newNode->next = head;
+    return newNode;
+}
+pair<bool, Node*> detectCycle(Node* head) {
+    Node* slow = head;
+    Node* fast = head;
+    bool hasCycle = false;
+    Node* cycleStartNode = nullptr;
+
+    while (fast != nullptr && fast->next != nullptr) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) {
+            hasCycle = true;
+            slow = head;
+            while (slow != fast) {
+                slow = slow->next;
+                fast = fast->next;
+            }
+            cycleStartNode = slow;
+            break;
+        }
+    }
+
+    return {hasCycle, cycleStartNode};
+}
+
+int main() {
+    Node* head = nullptr;
+    head = addToBeginning(head, 10);
+    head->next = createNode(20);
+    head->next->next = createNode(30);
+    head->next->next->next = createNode(40);
+    head->next->next->next->next = head;
+    auto result = detectCycle(head);
+    bool hasCycle = result.first;
+    Node* cycleStartNode = result.second;
+
+    cout << "Has Cycle: " << (hasCycle ? "Yes" : "No") << endl;
+    if (hasCycle) {
+        cout << "Cycle Start Node: " << cycleStartNode->data << endl;
+    }
+
+    return 0;
+}
+

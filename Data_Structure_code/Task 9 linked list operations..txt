@@ -1,0 +1,94 @@
+#include <iostream>
+using namespace std;
+struct Node {
+    int data;
+    Node* next;
+};
+Node* createNode(int value) {
+    Node* newNode = new Node();
+    newNode->data = value;
+    newNode->next = nullptr;
+    return newNode;
+}
+Node* addToBeginning(Node* head, int value) {
+    Node* newNode = createNode(value);
+    newNode->next = head;
+    return newNode;
+}
+void insertAfterValue(Node* head, int value, int insertValue) {
+    Node* newNode = createNode(insertValue);
+    Node* temp = head;
+    while (temp != nullptr) {
+        if (temp->data == value) {
+            newNode->next = temp->next;
+            temp->next = newNode;
+            return;
+        }
+        temp = temp->next;
+    }
+}
+void insertAtPosition(Node* head, int position, int insertValue) {
+    Node* newNode = createNode(insertValue);
+    Node* temp = head;
+    for (int i = 1; i < position - 1; ++i) {
+        if (temp == nullptr) {
+            cout << "Invalid position." << endl;
+            return;
+        }
+        temp = temp->next;
+    }
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+void deleteNodeWithValue(Node* head, int value) {
+    Node* temp = head;
+    while (temp->next != nullptr && temp->next->data != value) {
+        temp = temp->next;
+    }
+    if (temp->next == nullptr) {
+        cout << "Node with value " << value << " not found." << endl;
+        return;
+    }
+    Node* nodeToDelete = temp->next;
+    temp->next = temp->next->next;
+    delete nodeToDelete;
+}
+void deleteNodeAtPosition(Node* head, int position) {
+    Node* temp = head;
+    for (int i = 1; i < position - 1; ++i) {
+        if (temp == nullptr || temp->next == nullptr) {
+            cout << "Invalid position." << endl;
+            return;
+        }
+        temp = temp->next;
+    }
+    Node* nodeToDelete = temp->next;
+    temp->next = temp->next->next;
+    delete nodeToDelete;
+}
+void printLinkedList(Node* head) {
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout << temp->data;
+        if (temp->next != nullptr) {
+            cout << " -> ";
+        }
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    Node* head = nullptr;
+    head = addToBeginning(head, 5);
+    insertAfterValue(head, 5, 25);
+    insertAtPosition(head, 2, 20);
+    deleteNodeWithValue(head, 10);
+    deleteNodeAtPosition(head, 3);
+
+    cout << "Linked List: ";
+    printLinkedList(head);
+
+    return 0;
+}
+

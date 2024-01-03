@@ -1,0 +1,86 @@
+#include <iostream>
+using namespace std;
+struct Node {
+    int data;
+    Node* next;
+};
+Node* createNode(int value) {
+    Node* newNode = new Node();
+    newNode->data = value;
+    newNode->next = nullptr;
+    return newNode;
+}
+Node* addToEnd(Node* head, int value) {
+    Node* newNode = createNode(value);
+    if (head == nullptr) {
+        return newNode;
+    }
+    Node* temp = head;
+    while (temp->next != nullptr) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    return head;
+}
+Node* mergeSortedLists(Node* listA, Node* listB) {
+    Node* mergedList = nullptr;
+    Node* tail = nullptr;
+
+    while (listA != nullptr && listB != nullptr) {
+        if (listA->data <= listB->data) {
+            if (mergedList == nullptr) {
+                mergedList = listA;
+                tail = listA;
+            } else {
+                tail->next = listA;
+                tail = tail->next;
+            }
+            listA = listA->next;
+        } else {
+            if (mergedList == nullptr) {
+                mergedList = listB;
+                tail = listB;
+            } else {
+                tail->next = listB;
+                tail = tail->next;
+            }
+            listB = listB->next;
+        }
+    }
+    if (listA != nullptr) {
+        tail->next = listA;
+    } else {
+        tail->next = listB;
+    }
+
+    return mergedList;
+}
+void printLinkedList(Node* head) {
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout << temp->data;
+        if (temp->next != nullptr) {
+            cout << " -> ";
+        }
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    Node* listA = nullptr;
+    Node* listB = nullptr;
+
+    listA = addToEnd(listA, 5);
+    listA = addToEnd(listA, 10);
+
+    listB = addToEnd(listB, 7);
+    listB = addToEnd(listB, 12);
+
+    Node* mergedList = mergeSortedLists(listA, listB);
+
+    cout << "Merged List: ";
+    printLinkedList(mergedList);
+
+    return 0;
+}

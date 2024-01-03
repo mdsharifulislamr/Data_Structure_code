@@ -1,0 +1,16 @@
+#include <stdio.h>
+// Function to calculate the nth Fibonacci number recursively
+int fibonacci(int n) {
+if (n <= 1) {
+return n;
+} else {
+return fibonacci(n - 1) + fibonacci(n - 2);
+}
+}
+int main() {
+int num;
+printf("Enter the value of n for the nth Fibonacci number: ");
+scanf("%d", &num);
+printf("The %dth Fibonacci number is %d\n", num, fibonacci(num));
+return 0;
+}
